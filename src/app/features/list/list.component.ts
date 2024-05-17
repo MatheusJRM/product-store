@@ -4,38 +4,8 @@ import { Product } from '../../shared/interfaces/product.interface';
 import { CardComponent } from './components/card/card.component';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatDialog,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 import { filter } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-@Component({
-  selector: 'app-confirmation-dialog',
-  template: `<h2 mat-dialog-title>Deletar Produto</h2>
-    <mat-dialog-content>
-      Tem certeza que quer deletar esse produto?
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-flat-button (click)="onClose()">Não</button>
-      <button mat-flat-button (click)="onConfirm()" cdkFocusInitial>Sim</button>
-    </mat-dialog-actions>`,
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-})
-export class DialogAnimationsExampleDialog {
-  dialogRef = inject(MatDialogRef);
-
-  onClose() {
-    this.dialogRef.close(false);
-  }
-
-  onConfirm() {
-    this.dialogRef.close(true);
-  }
-}
 
 @Component({
   selector: 'app-list',
@@ -48,8 +18,7 @@ export class ListComponent {
   products: Product[] = [];
   productsService = inject(ProductsService);
   router = inject(Router);
-  dialog = inject(MatDialog);
-  matSnackBar = inject(MatSnackBar);
+  confirmationDialogService = inject(ConfirmationDialogService);
 
   ngOnInit() {
     this.productsService.getAll().subscribe((products) => {
@@ -62,21 +31,18 @@ export class ListComponent {
   }
 
   onDelete(id: string) {
-    this.dialog
-      .open(DialogAnimationsExampleDialog, {
-        data: { id },
-      })
-      .afterClosed()
-      .pipe(filter((answer: boolean) => answer === true))
-      .subscribe(() => {
+    this.confirmationDialogService
+      .openDialog()
+      .pipe(filter((answer) => answer === true)) // Isso é para substituir o IF!!
+      // Ele verifica se o que retorna do open dialog é true
+      .subscribe((answer) => {
+        // if (answer) {
         this.productsService.delete(id).subscribe(() => {
-          this.matSnackBar.open('Produto deletado com sucesso!', 'Ok', {
-            panelClass: ['app-notification-success'],
-          });
           this.productsService.getAll().subscribe((products) => {
             this.products = products;
           });
         });
+        // }
       });
   }
 }
