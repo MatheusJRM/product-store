@@ -1,27 +1,34 @@
-# ProductStore
+# Product Store
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+_Product Store_ é uma aplicação em Angular 17.3.7 para gerenciar uma lista de produtos. Ela permite listar, criar, editar e excluir produtos. O projeto utiliza Angular Material para estilização, incluindo diálogos (dialogs), notificações (snack bars) e gerenciamento de formulários de criação (com formulário limpo) e edição (com dados carregados automaticamente). O backend é emulado com JSON Server, e a comunicação com o backend é feita utilizando o `HttpClient` com os métodos `GET`, `GETById`, `POST`, `PUT` e `DELETE`.
 
-## Development server
+## Funcionalidades
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Listar produtos
+- Criar um novo produto
+- Editar um produto existente
+- Excluir um produto
 
-## Code scaffolding
+## Tecnologias Utilizadas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 17
+- Angular Material
+- JSON Server
 
-## Build
+## Boas Práticas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Separação de responsabilidades entre componentes.
+- Uso de Angular Material para uma UI consistente e responsiva.
+- Notificações de sucesso e erro com snack bars.
+- Diálogos para confirmação de ações.
 
-## Running unit tests
+## Pré-requisitos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Node.js
+- Angular CLI
 
-## Running end-to-end tests
+## Instalação
+- _npm install_
+- _npx json-server db.json_ (Para emulação dos dados)
+- _npm start_
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
